@@ -14,16 +14,6 @@ public class Ex3_Movie {
 
 	public static void main(String[] args) throws FileNotFoundException {
 
-		//		File[] files = new File(".").listFiles(); //"." means root of project -> "AD Project 2015"
-
-		long t1 = System.currentTimeMillis();
-		Ex3_Movie.Rating[] ratings = getRatings(readData("ratings.dat"));
-		Ex3_Movie.Movie[] movies = getMovies(readData("movies.dat"));
-		Ex3_Movie.User[] users = getUsers(readData("users.dat"));
-		long t2 = System.currentTimeMillis();
-		System.out.println("\nTime to read data: " + (t2 - t1) + " ms\n");
-
-
 		HashMap<Integer, Movie> moviesHMap = getMovieHMAp(readData("movies.dat"));
 
 		System.out.println("Size of HMap: " + moviesHMap.size());
