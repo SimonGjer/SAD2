@@ -16,7 +16,7 @@ public class Ex3_Movie {
 
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
 
-				File[] files = new File(".").listFiles(); //"." means root of project -> "AD Project 2015"
+		//		File[] files = new File(".").listFiles(); //"." means root of project -> "AD Project 2015"
 
 		long t1 = System.currentTimeMillis();
 		Ex3_Movie.Rating[] ratings = getRatings(readData("ratings.dat"));
@@ -24,7 +24,7 @@ public class Ex3_Movie {
 		Ex3_Movie.User[] users = getUsers(readData("users.dat"));
 		long t2 = System.currentTimeMillis();
 		System.out.println("\nTime to read data: " + (t2 - t1) + " ms\n");
-//		saveData(movies, "moviesMac.dat");
+		//		saveData(movies, "moviesMac.dat");
 
 		HashMap<Integer, Movie> moviesHMap = getMovieHMAp(readData("movies.dat"));
 
@@ -407,7 +407,7 @@ public class Ex3_Movie {
 		indexRanges[nThread - 1][1] = movies.length - 1;
 
 
-		for(int i=0; i<nThread; i++)
+		for(int i = 0; i < nThread; i++)
 			reset(movies);
 		HashMap<Integer, Integer> hMapIdMovies = mapMovieId(movies);
 		rating(movies, ratings, hMapIdMovies);
@@ -481,21 +481,12 @@ public class Ex3_Movie {
 		}
 	}
 
-	//	public class MovieRateComparatorTest implements Comparator<String> {
-	//		@Override
-	//		public int compare(String m1, String m2) {
-	//			if (m1.length() < m2.avgRate) return -1;
-	//			if (m1.avgRate > m2.avgRate) return 1;
-	//			return 0;
-	//		}
-	//	}
-
 	public static ArrayList<String[]> readData(String fileName) throws FileNotFoundException {
 		File file = new File(fileName);
-		if (!file.exists()) file = new File(".\\data\\ml-1m" + '\\' + fileName);
-		
+				if (!file.exists()) file = new File(".\\data\\ml-1m" + '\\' + fileName);
+
 		if (file.exists()) System.out.println("Sti OK"); //**
-		
+
 		if (!file.exists()) file = new File("F:\\Dropbox\\Algorithm Design Project\\Exercises\\ex3\\ml-1m" + '\\' + fileName);
 		if (!file.exists()) return new ArrayList<String[]>(); // ?? null
 
