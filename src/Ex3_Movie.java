@@ -14,7 +14,7 @@ public class Ex3_Movie {
 
 	public static void main(String[] args) throws FileNotFoundException {
 
-		//		File[] files = new File(".").listFiles(); //"." means root of project -> "AD Project 2015"
+				File[] files = new File(".").listFiles(); //"." means root of project -> "AD Project 2015"
 
 		long t1 = System.currentTimeMillis();
 		Ex3_Movie.Rating[] ratings = getRatings(readData("ratings.dat"));
