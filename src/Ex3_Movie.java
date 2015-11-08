@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -12,9 +14,9 @@ public class Ex3_Movie {
 
 	static Ex3_Movie ex3 = new Ex3_Movie();
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
 
-		//		File[] files = new File(".").listFiles(); //"." means root of project -> "AD Project 2015"
+				File[] files = new File(".").listFiles(); //"." means root of project -> "AD Project 2015"
 
 		long t1 = System.currentTimeMillis();
 		Ex3_Movie.Rating[] ratings = getRatings(readData("ratings.dat"));
@@ -22,7 +24,7 @@ public class Ex3_Movie {
 		Ex3_Movie.User[] users = getUsers(readData("users.dat"));
 		long t2 = System.currentTimeMillis();
 		System.out.println("\nTime to read data: " + (t2 - t1) + " ms\n");
-
+//		saveData(movies, "moviesMac.dat");
 
 		HashMap<Integer, Movie> moviesHMap = getMovieHMAp(readData("movies.dat"));
 
@@ -327,80 +329,93 @@ public class Ex3_Movie {
 		return topMoviesRet;
 	}
 
-//	public static Ex3_Movie.Movie[] findTopAvgRate5(Ex3_Movie.Movie[] movies, Ex3_Movie.Rating[] ratings, int nRetMovie) {
-//
-//		if (movies.length < nRetMovie) nRetMovie = movies.length;
-//
-//		reset(movies);
-//		HashMap<Integer, Integer> hMapIdMovies = mapMovieId(movies);
-//		rating(movies, ratings, hMapIdMovies);
-//		avgRate(movies);
-//		Movie[] topMoviesRet = getTopMovies(movies, nRetMovie);
-//		
-//		return topMoviesRet;
-//	}
-//
-//	public static void reset(Movie[] movies) {
-//		for(Movie m : movies)
-//			m.nRating = m.sumRating = 0;
-//	}
-//
-//	public static HashMap<Integer, Integer> mapMovieId(Movie[] movies) {
-//		HashMap<Integer, Integer> hMapIdMovies = new HashMap<>();
-//		for(int i = 0; i < movies.length; i++)
-//			hMapIdMovies.put(movies[i].movieId, i);
-//		return hMapIdMovies;
-//	}
-//
-//	public static void rating(Movie[] movies, Rating[] ratings, HashMap<Integer, Integer> hMapIdMovies) {
-//		for(Rating r : ratings) {
-//			Movie m = movies[hMapIdMovies.get(r.movieId)];
-//			m.sumRating += r.rating;
-//			m.nRating++;
-//		}
-//	}
-//	public static void avgRate(Movie[] movies) {
-//		for(Movie m : movies)
-//			if (m.nRating > 0) m.avgRate = (double) m.sumRating / m.nRating;
-//	}
-//
-//
-//	public static Movie[] getTopMovies(Movie[] movies, int nRetMovie) {
-//		Comparator<Movie> comparatorMovieAvgRate = ex3.new MovieRateComparator();
-//		PriorityQueue<Movie> topMovies = new PriorityQueue<Movie>(nRetMovie, comparatorMovieAvgRate);
-//
-//		int iMovie = 0;
-//		for (; iMovie < nRetMovie; iMovie++)
-//			topMovies.add(movies[iMovie]);
-//
-//		double minRateInTop = topMovies.peek().avgRate;
-//
-//		for (; iMovie < movies.length; iMovie++) {
-//			Movie m = movies[iMovie];
-//			if (m.avgRate > minRateInTop) {
-//				topMovies.remove();
-//				topMovies.add(m);
-//				minRateInTop = topMovies.peek().avgRate;
-//			}
-//		}
-//
-//		Movie[] topMoviesRet = new Movie[nRetMovie];
-//		for(int i = nRetMovie - 1; i >= 0; i--)
-//			topMoviesRet[i] = topMovies.remove();
-//
-//		return topMoviesRet;
-//	}
+	//	public static Ex3_Movie.Movie[] findTopAvgRate5(Ex3_Movie.Movie[] movies, Ex3_Movie.Rating[] ratings, int nRetMovie) {
+	//
+	//		if (movies.length < nRetMovie) nRetMovie = movies.length;
+	//
+	//		reset(movies);
+	//		HashMap<Integer, Integer> hMapIdMovies = mapMovieId(movies);
+	//		rating(movies, ratings, hMapIdMovies);
+	//		avgRate(movies);
+	//		Movie[] topMoviesRet = getTopMovies(movies, nRetMovie);
+	//		
+	//		return topMoviesRet;
+	//	}
+	//
+	//	public static void reset(Movie[] movies) {
+	//		for(Movie m : movies)
+	//			m.nRating = m.sumRating = 0;
+	//	}
+	//
+	//	public static HashMap<Integer, Integer> mapMovieId(Movie[] movies) {
+	//		HashMap<Integer, Integer> hMapIdMovies = new HashMap<>();
+	//		for(int i = 0; i < movies.length; i++)
+	//			hMapIdMovies.put(movies[i].movieId, i);
+	//		return hMapIdMovies;
+	//	}
+	//
+	//	public static void rating(Movie[] movies, Rating[] ratings, HashMap<Integer, Integer> hMapIdMovies) {
+	//		for(Rating r : ratings) {
+	//			Movie m = movies[hMapIdMovies.get(r.movieId)];
+	//			m.sumRating += r.rating;
+	//			m.nRating++;
+	//		}
+	//	}
+	//	public static void avgRate(Movie[] movies) {
+	//		for(Movie m : movies)
+	//			if (m.nRating > 0) m.avgRate = (double) m.sumRating / m.nRating;
+	//	}
+	//
+	//
+	//	public static Movie[] getTopMovies(Movie[] movies, int nRetMovie) {
+	//		Comparator<Movie> comparatorMovieAvgRate = ex3.new MovieRateComparator();
+	//		PriorityQueue<Movie> topMovies = new PriorityQueue<Movie>(nRetMovie, comparatorMovieAvgRate);
+	//
+	//		int iMovie = 0;
+	//		for (; iMovie < nRetMovie; iMovie++)
+	//			topMovies.add(movies[iMovie]);
+	//
+	//		double minRateInTop = topMovies.peek().avgRate;
+	//
+	//		for (; iMovie < movies.length; iMovie++) {
+	//			Movie m = movies[iMovie];
+	//			if (m.avgRate > minRateInTop) {
+	//				topMovies.remove();
+	//				topMovies.add(m);
+	//				minRateInTop = topMovies.peek().avgRate;
+	//			}
+	//		}
+	//
+	//		Movie[] topMoviesRet = new Movie[nRetMovie];
+	//		for(int i = nRetMovie - 1; i >= 0; i--)
+	//			topMoviesRet[i] = topMovies.remove();
+	//
+	//		return topMoviesRet;
+	//	}
 
 	public static Ex3_Movie.Movie[] findTopAvgRate6(Ex3_Movie.Movie[] movies, Ex3_Movie.Rating[] ratings, int nRetMovie) {
 
 		if (movies.length < nRetMovie) nRetMovie = movies.length;
 
-		reset(movies);
+		int nThread = 8;
+		int[][] indexRanges = new int[nThread][2]; // 0:From index   1:To index
+
+		for(int i = 0; i < nThread; i++)
+			indexRanges[i][0] = movies.length / (nThread + 1) * i;
+		for(int i = 0; i < nThread - 1; i++)
+			indexRanges[i][1] = indexRanges[i + 1][0] - 1;
+		indexRanges[nThread - 1][1] = movies.length - 1;
+
+
+		for(int i=0; i<nThread; i++)
+			reset(movies);
 		HashMap<Integer, Integer> hMapIdMovies = mapMovieId(movies);
 		rating(movies, ratings, hMapIdMovies);
 		avgRate(movies);
 		Movie[] topMoviesRet = getTopMovies(movies, nRetMovie);
-		
+
+		//mergeTopMovie();
+
 		return topMoviesRet;
 	}
 
@@ -454,8 +469,8 @@ public class Ex3_Movie {
 
 		return topMoviesRet;
 	}
-	
-	
+
+
 
 	public class MovieRateComparator implements Comparator<Movie> {
 		@Override
@@ -477,6 +492,10 @@ public class Ex3_Movie {
 
 	public static ArrayList<String[]> readData(String fileName) throws FileNotFoundException {
 		File file = new File(fileName);
+		if (!file.exists()) file = new File(".\\data\\ml-1m" + '\\' + fileName);
+		
+		if (file.exists()) System.out.println("Sti OK"); //**
+		
 		if (!file.exists()) file = new File("F:\\Dropbox\\Algorithm Design Project\\Exercises\\ex3\\ml-1m" + '\\' + fileName);
 		if (!file.exists()) return new ArrayList<String[]>(); // ?? null
 
@@ -521,6 +540,24 @@ public class Ex3_Movie {
 		return users;
 	}
 
+	public static void saveData(Movie[] movies, String fileName) throws FileNotFoundException, UnsupportedEncodingException {
+		File file = new File("F:\\Dropbox\\Algorithm Design Project\\Exercises\\ex3\\ml-1m" + '\\' + fileName);
+		PrintWriter writer = new PrintWriter(file, "UTF-8");
+
+
+		for(int i=0; i < movies.length; i++) {
+			writer.print(movies[i].movieId + "::" + movies[i].title + "::");
+
+			for (int j=0; j < movies[i].genre.length - 1; j++)
+				writer.print(movies[i].genre[j] + "___");
+
+			if (movies[i].genre.length > 0) writer.print(movies[i].genre[movies[i].genre.length - 1]);
+			writer.println();
+		}
+		writer.close();
+	}
+
+
 
 	class Rating {
 		int user;
@@ -548,7 +585,7 @@ public class Ex3_Movie {
 		Movie(String movieId, String title, String genre) {
 			this.movieId = Integer.parseInt(movieId);
 			this.title = title;
-			this.genre = genre.split("|");
+			this.genre = genre.split("\\|"); // !!
 		}
 
 		@Override
